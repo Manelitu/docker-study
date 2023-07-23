@@ -136,6 +136,23 @@ Significado: Esse comando cria uma nova imagem Docker com base nas instruções 
 
 -t manelito/nginx-with-vim:latest: Especifica o nome da nova imagem que será criada. Neste caso, a imagem será nomeada como "manelito/nginx-with-vim" com a tag "latest". A tag "latest" é uma convenção comum para indicar a versão mais recente da imagem.
 
-.: Especifica o contexto de build para o Docker. O Docker irá procurar o arquivo Dockerfile no diretório atual para construir a imagem.
+## 16\. Remover todos os containers
 
-Após a execução do comando, o Docker analisará o Dockerfile presente no diretório atual, executará cada instrução e criará uma nova imagem com o nome e tag especificados. Essa imagem pode ser usada posteriormente para criar contêineres com as configurações definidas no Dockerfile.
+Comando:
+
+```bash
+   docker rm $(docker ps -a -q) -f
+```
+
+O comando `docker ps` lista todos os containers ativos no momento. A opção `-a` também inclui os containers inativos (parados).
+A opção `-q ou --quiet ` é usada para retornar apenas os IDs numéricos dos containers, tornando a saída mais limpa.
+
+`$(docker ps -a -q):`
+O uso do $(...) é chamado de substituição de comando no shell. Ele executa o comando entre parênteses e retorna o resultado como argumentos para o comando externo.
+Neste caso, `$(docker ps -a -q)` é substituído pelos IDs dos containers ativos e inativos.
+
+`docker rm $(docker ps -a -q) -f:`
+O comando `docker rm` é usado para remover container(s).
+`$(docker ps -a -q)` é substituído pelos IDs dos containers ativos e inativos, e isso resulta em um conjunto de argumentos para o comando docker rm.
+A flag -f é usada para forçar a remoção do(s) container(s), mesmo que estejam em execução (caso contrário, o Docker exige que os containers estejam parados antes de serem removidos).
+
