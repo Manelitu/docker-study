@@ -156,3 +156,58 @@ O comando `docker rm` é usado para remover container(s).
 `$(docker ps -a -q)` é substituído pelos IDs dos containers ativos e inativos, e isso resulta em um conjunto de argumentos para o comando docker rm.
 A flag -f é usada para forçar a remoção do(s) container(s), mesmo que estejam em execução (caso contrário, o Docker exige que os containers estejam parados antes de serem removidos).
 
+O comando docker logout é usado para fazer logout de um registro de container.
+
+## 17\. Logout de um registro de container
+
+Comando:
+
+```bash
+   docker logout [REGISTRY_URL]
+```
+`docker logout [REGISTRY_URL]`
+Onde `[REGISTRY_URL]` é o URL do registro de container a partir do qual você deseja fazer logout. Se você estiver logado em um registro específico, executar este comando fará com que você saia e remova as credenciais de autenticação associadas a esse registro em seu sistema. Isso significa que você não poderá mais acessar imagens privadas desse registro até fazer login novamente.
+
+Se não for especificado um URL de registro, o comando docker logout irá deslogar do registro padrão, que é o Docker Hub.
+
+## 18\. Login de um registro de container
+
+Comando:
+
+```bash
+   docker login [REGISTRY_URL]
+```
+
+Onde `[REGISTRY_URL]` é o URL do registro de container onde você deseja fazer login. Se você não especificar um URL de registro, o comando docker login fará login no registro padrão, que é o Docker Hub.
+
+Após executar o comando, você será solicitado a fornecer suas credenciais de autenticação, geralmente um nome de usuário e senha ou um token de acesso, dependendo do registro. Uma vez autenticado com sucesso, suas credenciais serão armazenadas localmente no sistema e você poderá acessar imagens privadas desse registro através do Docker CLI.
+
+## 19\. Upload da imagen para um registro de container
+
+Comando:
+
+```bash
+   docker push [REGISTRY_URL]/[NOME_DA_IMAGEM]:[TAG]
+```
+
+`[REGISTRY_URL]` é o URL do registro de container para o qual você deseja enviar a imagem. Se você estiver usando o Docker Hub, o URL padrão é docker.io.
+`[NOME_DA_IMAGEM]` é o nome da imagem que você deseja enviar.
+`[TAG]` é a tag da imagem que você deseja enviar. A tag geralmente representa a versão da imagem, como "latest", "v1.0", etc.
+Antes de usar o comando docker push, você deve ter a imagem localmente em seu sistema, o que significa que você deve ter construído a imagem usando o comando docker build ou baixado uma imagem pré-existente usando o comando docker pull. Além disso, você deve estar autenticado no registro de container para o qual deseja enviar a imagem, o que pode ser feito usando o comando docker login.
+
+Ao executar o comando docker push, a imagem é enviada para o registro de container especificado, tornando-a disponível para outros usuários baixarem e usarem em seus próprios contêineres. Certifique-se de ter permissão para enviar imagens para o registro, pois alguns registros podem exigir autenticação e autorização adequadas.
+
+## 20\. Baixar uma imagen de um registro de container
+
+Comando:
+
+```bash
+   docker pull [REGISTRY_URL]/[NOME_DA_IMAGEM]:[TAG]
+```
+
+`[REGISTRY_URL]` é o URL do registro de container de onde você deseja baixar a imagem. Se você estiver usando o Docker Hub, o URL padrão é docker.io.
+`[NOME_DA_IMAGEM]` é o nome da imagem que você deseja baixar.
+`[TAG]` é a tag da imagem que você deseja baixar. A tag geralmente representa a versão da imagem, como "latest", "v1.0", etc. Se não for especificada uma tag, o Docker irá baixar a versão "latest" por padrão.
+O comando docker pull irá buscar a imagem especificada no registro de container e baixá-la para o seu sistema local. Após o download, a imagem estará disponível em seu sistema e você poderá usá-la para criar novos contêineres com base nessa imagem.
+
+Antes de usar o comando docker pull, verifique se você está autenticado no registro de container, caso a imagem seja privada e exija autenticação. Você pode fazer login usando o comando docker login. Caso contrário, você só poderá baixar imagens públicas disponíveis no registro.
